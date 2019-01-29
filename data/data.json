@@ -1,0 +1,10 @@
+{   "city1" :
+    {   "name" : "Venice",
+        "continent" : "Europe",
+        "coordinates" :
+        {   "longitude" : 45.438,
+            "latitude" : 12.336
+        }
+    }
+}
+

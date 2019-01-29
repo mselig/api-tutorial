@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>RESTful API tutorial</title>
+		<meta name = "viewport" content="width=device-width, initial-scale=1.0">
+        <link href = "css/bootstrap.min.css" rel = "stylesheet">
+        <link href = "css/style.css" rel = "stylesheet">
+    </head>
+    <body>
+		<div class = "container">
+			<div class = "row">
+				<div class = "col-12 col-title">
+					<center>
+						<h1>RESTful API tutorial</h1>
+					</center>
+				</div>
+			</div>
+		<div class = "container">
+			<div class = "row">
+				<div class = "col-12 col-tutorial">
+					<p>
+						You can
+						<button type="button" class="btn btn-primary align-baseline" id="get_button">get</button>
+						the data.
+					</p>
+					<p id="gotten_content"><i>placeholder</i></p>
+				</div>
+			</div>
+			<div class = "row">
+				<div class = "col-12 col-tutorial">
+					<div class = "list-group">
+						<p>
+							You can
+							<button type="button" class="btn btn-warning align-baseline" id="add_button">add</button>
+							to or
+							<button type="button" class="btn btn-danger align-baseline" id="delete_button">delete</button>
+							from the data.
+						</p>
+						<p id="content"><i>placeholder</i></p>
+                    </div>
+                </div>
+			</div>
+			<div class = "row">
+				<div class = "col-12 col-tutorial">
+					<div class = "list-group">
+						<p>
+							You can
+							<button type="button" class="btn btn-success align-baseline" id="beauty_button">beautify</button>
+							the data.
+						</p>
+						<p id="beauty_content"><i>placeholder</i></p>
+                    </div>
+                </div>
+			</div>
+		</div>
+
+		<div class = "license">
+			<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class = "navbar-btn btn pull-right"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png"/></a>
+		</div>
+    </body>
+    <script src="./client.js"></script>
+</html>
+

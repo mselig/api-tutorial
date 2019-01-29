@@ -1,0 +1,39 @@
+html
+{
+	font-family:sans-serif;
+}
+body
+{
+	padding: 0;
+	background-color: #333333;
+	background-image: url("../img/venice.jpg");
+    height: auto;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+*
+{
+    border-radius: 0 !important;
+}
+.col-title
+{
+	margin: 24px;
+	padding: 24px;
+	color: #FFFFFF;
+}
+.col-tutorial
+{
+	margin: 12px;
+	padding: 12px;
+    background-image: url('../img/opaque90.png');
+}
+div.license
+{
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 5px;
+  margin-right: 10px;
+}

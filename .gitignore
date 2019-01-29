@@ -1,0 +1,6 @@
+.npm/
+node_modules/
+
+data/data.json
+package.json
+*.log
