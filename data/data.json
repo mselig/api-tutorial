@@ -2,8 +2,8 @@
     {   "name" : "Venice",
         "continent" : "Europe",
         "coordinates" :
-        {   "longitude" : 45.438,
-            "latitude" : 12.336
+        {   "longitude" : 12.336,
+            "latitude" : 45.438
         }
     }
 }

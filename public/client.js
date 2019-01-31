@@ -37,8 +37,8 @@ const KYOTO =
     {   "name" : "Kyoto",
         "continent" : "Asia",
         "coordinates" :
-        {   "longitude" : 35.012,
-            "latitude" : 135.768
+        {   "longitude" : 135.768,
+            "latitude" : 35.012
         }
     }
 };
