@@ -1,24 +1,24 @@
-const system = require("fs");
-const bodyParser = require('body-parser');
-const express = require("express");
+const system = require("fs");              // for access to the file system
+const bodyParser = require("body-parser"); // for parsing a request's body
+const express = require("express");        // as web framework
 const app = express();
 const HOST = "localhost";
 const PORT = 42000;
 const file = __dirname + "/data/data.json";
 
 
-var server = app.listen(PORT, HOST, function()
+app.listen(PORT, HOST, function()
 {   var host = server.address().address
     var port = server.address().port
     console.log("server listening at http://%s:%s", host, port)
 });
 
 
-// permit access to resources in public/
+// permit access to resources in 'public/'
 app.use(express.static("./public"));
 
 
-// serve index
+// main GET API returning 'index.html'
 app.get("/", function(request, response)
 {   response.sendFile(__dirname + "/public/index.html");
 });
@@ -37,8 +37,8 @@ app.get("/getter", function(request, response)
 });
 
 
-app.use(bodyParser.urlencoded({extended : false}));
-app.use(bodyParser.json({type: "text/plain"}));
+app.use(bodyParser.urlencoded({extended : false})); // use unextended URL encoding
+app.use(bodyParser.json({type: "text/plain"}));     // use plain text JSON format
 
 
 app.put("/putter", function (request, response)

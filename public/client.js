@@ -29,7 +29,7 @@ setInterval(function()
         .then(function(data)
         {   document.getElementById("content").innerHTML = JSON.stringify(data);
         });
-}, 20000); // milliseconds
+}, 3000); // milliseconds
 
 
 const KYOTO =
