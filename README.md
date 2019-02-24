@@ -1,25 +1,25 @@
 # RESTful API tutorial
 
 This tutorial will guide you through setting up a simple web application, written in [JavaScript](https://en.wikipedia.org/wiki/JavaScript) and running with [Node.js](https://en.wikipedia.org/wiki/Node.js), that exposes a [REpresentational State Transfer (REST)](https://en.wikipedia.org/wiki/Representational_state_transfer) [Application Programming Interface (API)](https://en.wikipedia.org/wiki/Application_programming_interface).
-This RSETful API is exploited on the client's side to issue GET, PUT, and POST requests and handle the server's responses.
+This RSETful API is exploited on the client's side by issuing GET, PUT, and POST requests and handle the server's responses.
 
-> In this README, you will find a **minimal** solution.
+> In this tutorial, you will find a **minimal** solution.
 > The commited code includes elementary exception handling and other "corrections" as well as a more appealing design.
-> Feel free to compare as you go through the tutorial.
+> Feel free to compare as you work through this tutorial.
 
 ## 1 setup
 
-For our web app(lication), we will need only a few files: a web page index in [HyperText Markup Language](https://en.wikipedia.org/wiki/HTML), data in [JavaScript Object Notation (JSON)](https://en.wikipedia.org/wiki/JSON), and each a server and a client script.
-In the following, we will step-by-step create these files and continously extend the app.
+For our web app(lication), we will need only a few files: a web page index in [HyperText Markup Language](https://en.wikipedia.org/wiki/HTML), data in [JavaScript Object Notation (JSON)](https://en.wikipedia.org/wiki/JSON), and each a server and a client [JavaScript](https://en.wikipedia.org/wiki/JavaScript) file.
+This tutrial provides a step-by-step guide for creating these files and continously extending the app.
 
 ### 1.1 starting a server
 
-The server script is the back-end of the app.
-It will requrie certain [modules](https://www.w3schools.com/nodejs/nodejs_modules.asp) including [**express**](https://expressjs.com/), a web framework for [Node.js](https://en.wikipedia.org/wiki/Node.js).
+The server script is the **back-end** of the app.
+It requries certain [modules](https://www.w3schools.com/nodejs/nodejs_modules.asp) (e.g., [**express**](https://expressjs.com/), a web framework for [Node.js](https://en.wikipedia.org/wiki/Node.js)).
 
 `./server.js`
 ```javascript
-const system = require("fs");              // for access to the file system
+const system = require("fs");              // for interaction with file system
 const bodyParser = require("body-parser"); // for parsing a request's body
 const express = require("express");        // as web framework
 const app = express();
@@ -28,7 +28,7 @@ app.listen(4200, "localhost", function()
 {   console.log("server listening at http://127.0.0.1:4200/")
 });
 ```
-To execute the server script, we (once) need to initialise the project and install its requirements using [Node.js Package Manager (**npm**)](https://www.npmjs.com/).
+To execute the server script, we (once) need to **initialise** the project and **install** its requirements using [Node.js Package Manager (**npm**)](https://www.npmjs.com/).
 This process will create `package.json` and `package-lock.json`, and store all requirements into `node_modules/`. Now, the server can be started using [**node**](https://nodejs.org/en/download/).
 ```
 $ npm init                         # initialise project, enter information or confirm defaults
@@ -46,7 +46,7 @@ Although the server has been started and is listening, it does not yet provide a
 
 ### 1.2 providing content
 
-Let's create some minimal content that a browser can displayed.
+Let's create some minimal content that a browser can displayed, starting with a web page.
 
 `./public/index.html`
 ```html
@@ -58,19 +58,17 @@ Let's create some minimal content that a browser can displayed.
     </head>
     <body>
         <h1>RESTful API tutorial</h1>
-        <p><i>placeholder</i></p>
     </body>
     <script src="./client.js"></script>
 </html>
 ```
-With the script tag, we are referencing a client script that will be the front-end of the app.
-For now, we keep the script as simple as possile.
+With the script tag, we are referencing (the relative path to) a client script that will be the **front-end** of the app.
+For now, we keep this script as simple as possile.
 
 `./public/client.js`
 ```javascript
 console.log("client console:");
 ```
-
 In order to have the server provide content, we need to grant the client access to `public/` and send `index.html` on access.
 
 `./server.js`
@@ -82,16 +80,17 @@ app.get("/", function(request, response)
 });
 ```
 Stop the server (with `[Ctrl]+[C]`), restart it (issuing `$ node server.js`), and open http://127.0.0.1:4200/ in your browser of choice.
-You see the `index.html` and the string `client console:` in the browser's web developer console.
+You will see the `index.html` and the string `client console:` in the browser's web developer console.
 
-Actually, we have just finished our first RESTful API. Opening the above link, the server receives a **GET request** and returns `index.html` as **repsonse**.
-In the next sections, we will create more "funtional" API exploits to interact with the server (and act on its data).
+Actually, we just developed our first RESTful API.
+Opening the above link, the server receives a **GET request** and returns `index.html` as **repsonse**.
+In the next sections, we will create more "funtional" APIs to interact with the server (and act on its data).
 
-## 2 RESTful APIs
+## 2 APIs
 
 ### 2.1 getting data
 
-Let our server have some data, say as plain [JSON](https://en.wikipedia.org/wiki/JSON) file (not within a database).
+Let our server have some data in a readable, plain text [JSON](https://en.wikipedia.org/wiki/JSON) file (not within a database).
 
 `./data/data.json`
 ```json
@@ -102,7 +101,7 @@ Let our server have some data, say as plain [JSON](https://en.wikipedia.org/wiki
 }
 ```
 The server will provide this data only on **request**.
-More precisely, we implement a API named "getter" on the server side that will read the data file and send it as **response**.
+More precisely, we implement a API named `"/getter"` on the server side that will read the data file and send it as **response**.
 
 `./server.js`
 ```javascript
@@ -114,15 +113,15 @@ app.get("/getter", function(request, response)
 });
 ```
 You can exploit this API by opening http://127.0.0.1:4200/getter in your browser.
-Next, we extend our web page buy a "get" button and a "placeholder" paragraph, in which the data will be displayed.
+Next, we extend the body of our web page buy a "get" button and a "placeholder" paragraph, in which the data will be displayed.
 
 `./public/index.html`
 ```html
         <button id="get_button">get</button>
         <p id="gotten_content"><i>placeholder</i></p>
 ```
-In the client script, we implement a function that is invoked in case of a "click" event on this button.
-On click, the client will send a "GET" request, [**fetch**](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) the server's (plain text) response, (then transform it to JSON,) and then replace "placeholder" by the data's string representation.
+On the client side, we implement a function that is invoked in case of a `"click"` event on this button.
+On click, the client sends a **GET request**, [**fetch**](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) the server's **response**, and [**then**](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then) replaces the "placeholder" by the data's string representation.
 
 `./public/client.js`
 ```javascript
@@ -139,8 +138,8 @@ document.getElementById("get_button").addEventListener("click", function(event)
 ```
 > The `fetch()` is executed **asynchronously**; i.e., once started the interpreter will continue without waiting for it to return.
 > However, `fetch()` will leave a [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) on which we can `then()` act.
-
-For comparison, the above snippet could also be realised with [jQuery](Restart the server and try out the new button.) and [Asynchronous Javascript And Xml (AJAX)](https://en.wikipedia.org/wiki/Ajax_(programming)).
+> 
+> For comparison, the above snippet could also be realised with [jQuery](https://jquery.com/) and [Asynchronous Javascript And Xml (AJAX)](https://en.wikipedia.org/wiki/Ajax_(programming)).
 ```javascript
 $('#get_button').click(function()
 {   console.log("click on GET button");
@@ -157,9 +156,8 @@ Restart the server and try out the new button.
 
 ### 2.2 adding data
 
-We can send data to the server through a **PUT** (or POST) API.
-On the server side, the request's body will be parsed (according predefined settings).
-The server will retrieve the new data from the request's body, read the original data, add every new key-value pair, and write it back to file.
+We can send data to the server through the **body** of a PUT (or POST) request.
+To add new data, the server retrieves the body, reads the original data, adds every new key-value pair, and writes it back to file.
 
 `./server.js`
 ```javascript
@@ -184,10 +182,11 @@ Next, we extend our web page with an "add" button.
 
 `./public/index.html`
 ```html
-        <br/>
+        <br/><!-- line break -->
         <button id="add_button">add</button>
 ```
-To exploit the "putter" API through a click on this button, we define the new data and send it within the body of a "PUT" request.
+For simplicity, let the new data be available to the client as variable.
+We send it within the body of a PUT request to the server's API `"/putter"`.
 
 `./public/client.js`
 ```javascript
@@ -206,10 +205,10 @@ document.getElementById("add_button").addEventListener("click", function(event)
 
 ### 2.3 deleting data
 
-We can request to delete data on the server through a **POST** (or PUT) API.
+**POST** (or PUT) APIs can also handle requests for the deletion of data.
 It is sufficient to send some identifier (e.g., the JSON key) of the entry we want deleted.
-For this purpose, our "poster" API accepts an additional parameter "key".
-The server will then read the original data, delete the specified entry if present, and write the data back to file
+For this purpose, our the API `"/poster"` accepts an additional parameter `key`.
+On request, the server reads the original data, deletes the specified entry (if present), and writes the data back to file.
 
 `./server.js`
 ```javascript
@@ -228,7 +227,7 @@ Next, we add a "delete" button.
 ```html
         <button id="delete_button">delete</button>
 ```
-It remains to implement sendinga a POST request to `"/poster/city0"` (without colon) to delete the key `"city0"`.
+It remains to implement sending the POST request to `"/poster/city0"` (without colon) to delete the key `"city0"` (and its value).
 
 `./public/client.js`
 ```javascript
@@ -237,7 +236,7 @@ document.getElementById("delete_button").addEventListener("click", function(even
     fetch("/poster/" + Object.keys(KYOTO)[0], {"method" : "POST"});
 });
 ```
-Time to give our buttons a try.
+Closing the add/delete circle, it is time to give our buttons a try.
 
 ### 2.4 beautify
 
@@ -248,9 +247,9 @@ Lastly, we augment the front-end of our app with a bit of convinience and beauty
         <br/>
         <p id="beauty_content"><i>placeholder</i></p>
 ```
-Instead of a button, we can invoke a function periodically, say with an interval of 2 seconds.
-And instead of a raw stringify, we can process the data into a beautiful string using template literals.
-Turning the data entries in to a list, we [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) the entries to sentences, which we [join](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join) to a beautiful text paragraph.
+Instead of a button, we can invoke a function periodically, say in an interval of 2 seconds.
+And instead of displaying raw data, we can process it into a beautiful string using template literals.
+Turning the data entries in to a list, the client can [map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) the entries into sentences and [join](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join) those into a text.
 
 `./public/client.js`
 ```javascript
