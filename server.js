@@ -7,7 +7,7 @@ const PORT = 42000;
 const file = __dirname + "/data/data.json";
 
 
-app.listen(PORT, HOST, function()
+var server = app.listen(PORT, HOST, function()
 {   var host = server.address().address
     var port = server.address().port
     console.log("server listening at http://%s:%s", host, port)
